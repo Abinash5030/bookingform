@@ -38,10 +38,10 @@ function enableNextStep(currentStepId, nextStepId){
         nextStep.classList.add("active");
 
         // smooth scroll
-        nextStep.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+        // nextStep.scrollIntoView({
+        //     behavior: "smooth",
+        //     block: "start"
+        // });
     }
 }
 
@@ -83,18 +83,136 @@ document.querySelectorAll('#step5 input').forEach(input=>{
     });
 }); 
 
+const range = document.getElementById("daysRange");
+const value = document.getElementById("rangeValue");
+
+function updateSlider(){
+
+    let val = range.value;
+    value.innerText = val + " days";
+
+    // calculate position
+    let percent = (val - range.min) / (range.max - range.min);
+
+    let sliderWidth = range.offsetWidth;
+    let offset = percent * sliderWidth;
+
+    value.style.left = offset + "px";
+}
+
+range.addEventListener("input", updateSlider);
+
+// initial position
+updateSlider();
+
+document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const minDate = `${yyyy}-${mm}-${dd}`;
+
+    const ids = ["arrival_date", "departure_date"]; // add all your IDs here
+
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.setAttribute("min", minDate);
+        }
+    });
+});
 
 
-document.querySelectorAll('input[type="range"]').forEach(range => {
+const budgetRange = document.getElementById("budgetRange");
+const budgetValue = document.getElementById("budgetValue");
 
-    let display = document.createElement('span');
-    display.style.marginLeft = "10px";
-    range.parentNode.appendChild(display);
+function updateBudget(){
 
-    function updateValue(){
-        display.innerText = range.value;
+    let val = budgetRange.value;
+
+    // format with commas
+    let formatted = "$" + Number(val).toLocaleString();
+
+    // show + at max
+    if(val == budgetRange.max){
+        formatted = "$" + Number(val).toLocaleString() + "+";
     }
 
-    range.addEventListener('input', updateValue);
-    updateValue();
+    budgetValue.innerText = formatted;
+
+    // move label with slider
+    let percent = (val - budgetRange.min) / (budgetRange.max - budgetRange.min);
+    let sliderWidth = budgetRange.offsetWidth;
+    let offset = percent * sliderWidth;
+
+    budgetValue.style.left = offset + "px";
+}
+
+budgetRange.addEventListener("input", updateBudget);
+
+// initial
+updateBudget();
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const form = document.getElementById("travelForm");
+
+    form.addEventListener("submit", function(e){
+
+        let isValid = true;
+
+        // remove old errors
+        document.querySelectorAll(".error").forEach(el => el.remove());
+
+        // ===== STEP 1 =====
+        let countries = document.querySelectorAll('#step1 input:checked');
+        if(countries.length === 0){
+            showError('#step1', "Please select at least one country");
+            isValid = false;
+        }
+
+        // ===== STEP 4 =====
+        let dates = document.querySelectorAll('#step4 input[type="date"]');
+        dates.forEach(input=>{
+            if(input.value === ""){
+                showError('#step4', "Please select travel dates");
+                isValid = false;
+            }
+        });
+
+        // ===== STEP 6 =====
+        let name = document.querySelector('#step6 input[type="text"]');
+        let email = document.querySelector('#step6 input[type="email"]');
+
+        if(name.value.trim() === ""){
+            showError('#step6', "Full name is required");
+            isValid = false;
+        }
+
+        if(email.value.trim() === "" || !validateEmail(email.value)){
+            showError('#step6', "Enter a valid email");
+            isValid = false;
+        }
+
+        if(!isValid){
+            e.preventDefault();
+        }
+
+    });
+
 });
+
+function showError(stepSelector, message){
+
+    let step = document.querySelector(stepSelector);
+
+    let error = document.createElement("p");
+    error.classList.add("error");
+    error.innerText = message;
+
+    step.appendChild(error);
+}
+
+function validateEmail(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
