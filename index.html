@@ -7,7 +7,7 @@
 </head>
 
 <body>
-
+<form id="travelForm">
 <div class="travel-form">
 
 <h2>REQUEST TRAVEL PROPOSAL</h2>
@@ -17,13 +17,13 @@
 
 <!-- STEP 1 -->
 <div class="form-step active" id="step1">
-    <label>1. What country/countries do you want to visit? *</label>
+    <label>1. What do you want to do? *</label>
 
     <div class="options">
-        <label><input type="checkbox" name="country[]"> Tanzania</label>
-        <label><input type="checkbox" name="country[]"> Kenya</label>
-        <label><input type="checkbox" name="country[]"> Uganda</label>
-        <label><input type="checkbox" name="country[]"> Rwanda</label>
+        <label><input type="checkbox" name="country[]"> Safari</label>
+        <label><input type="checkbox" name="country[]"> Beach holiday</label>
+        <!-- <label><input type="checkbox" name="country[]"> Uganda</label>
+        <label><input type="checkbox" name="country[]"> Rwanda</label> -->
     </div>
 </div>
 
@@ -31,11 +31,18 @@
 <div class="form-step disabled" id="step2">
     <label>2. How many days do you want to travel? *</label>
 
-    <div class="range-box">
-        <span>2</span>
-        <input type="range" min="2" max="30" value="2">
-        <span>30+</span>
+    <div class="range-box custom-range">
+
+    <span>3</span>
+
+    <div class="range-wrapper">
+        <input type="range" min="3" max="21" value="8" id="daysRange">
+        <div class="range-value" id="rangeValue">8 days</div>
     </div>
+
+    <span>21+</span>
+
+</div>
 </div>
 
 <!-- STEP 3 -->
@@ -43,10 +50,11 @@
     <label>3. Who are you travelling with?</label>
 
     <div class="options radio">
-        <label><input type="radio" name="group"> Honeymoon</label>
-        <label><input type="radio" name="group"> Family</label>
         <label><input type="radio" name="group"> Solo</label>
         <label><input type="radio" name="group"> Couple</label>
+        
+        <label><input type="radio" name="group"> Family</label>
+        <label><input type="radio" name="group"> Group</label>
     </div>
 </div>
 
@@ -56,11 +64,11 @@
      <div class="two-col">
        <div class="date-one">
          <label>Arrival Date</label>
-        <input type="date" placeholder="Arrival Date">
+        <input type="date" placeholder="Arrival Date" id="arrival_date" required>
        </div>
         <div class="date-two">
            <label>Departure Date</label>
-        <input type="date" placeholder="Departure Date">  
+        <input type="date" placeholder="Departure Date" id="departure_date" required>  
         </div>
        
     </div>
@@ -70,10 +78,17 @@
 <div class="form-step disabled" id="step5">
     <label>5. Budget per person</label>
 
-    <div class="range-box">
+    <div class="range-box custom-range">
+
         <span>$2000</span>
-        <input type="range" min="2000" max="7500">
+
+        <div class="range-wrapper">
+            <input type="range" min="2000" max="7500" step="100" value="3500" id="budgetRange">
+            <div class="range-value" id="budgetValue">$3500</div>
+        </div>
+
         <span>$7500+</span>
+
     </div>
 </div>
 
@@ -83,13 +98,13 @@
 <div class="form-step disabled" id="step6">
 
     <div class="two-col">
-        <input type="text" placeholder="Full name">
-        <input type="email" placeholder="Email">
+        <input type="text" placeholder="Full name" required>
+        <input type="email" placeholder="Email" required>
     </div>
     <div class="two-col">
 <div class="phone-field">
     
-    <select name="country_code">
+    <select name="country_code" required>
         <option value="">Select Country Code</option>
 
 <option value="+93">🇦🇫 +93 (Afghanistan)</option>
@@ -273,17 +288,17 @@
     </select>
 </div>
 <div class="number"> 
-    <input type="tel" placeholder="Phone"></div>
+    <input type="tel" placeholder="Phone" required></div>
     </div>
     
     <textarea placeholder="Anything else you'd like to share" class="shuut"></textarea>
 
-    <button class="submit-btn">CREATE MY TRAVEL PROPOSAL</button>
+    <button type="submit" class="submit-btn">CREATE MY TRAVEL PROPOSAL</button>
 
 </div>
 
 </div>
-
+</form>
 <script src="script.js"></script>
 </body>
 </html>
