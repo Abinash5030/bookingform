@@ -175,3 +175,76 @@ textarea.shuut {
     font-size:14px;
     margin-top:10px;
 }
+
+.form-side-box{
+background:#f5f5f5;
+padding:40px 30px;
+border-radius:10px;
+height:100%;
+width: 50%;
+}
+
+.side-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: #8c9300;
+    line-height: 1.4;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.side-benefits{
+list-style:none;
+padding:0;
+margin:0;
+}
+
+.side-benefits li{
+display:flex;
+align-items:center;
+margin-bottom:18px;
+font-size:16px;
+color:#333;
+}
+
+.check-icon{
+width:35px;
+height:35px;
+background:#f2a72b;
+color:#2d4a2d;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+margin-right:15px;
+font-weight:bold;
+}
+
+.review-box{
+margin-top:40px;
+}
+
+.review-box p{
+font-size:14px;
+letter-spacing:1px;
+color:#444;
+margin-bottom:10px;
+text-transform:uppercase;
+}
+
+.review-box h4{
+font-size:22px;
+font-weight:700;
+color:#8c9300;
+}
+.tailor-made-form-sec {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    justify-content: flex-end;
+}
+
+.form-side-box{
+position: sticky;
+top: 20px; /* adjust based on your header height */
+}
